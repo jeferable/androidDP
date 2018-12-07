@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.andrewmalygin.androiddp.RESTApi.Course;
 
@@ -27,8 +28,9 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHand
     }
 
     @Override
-    public void onBindViewHolder(ViewHandler viewHandler, int i) {
-
+    public void onBindViewHolder(ViewHandler handler, int i) {
+        //Course c = courses.get(i);
+        handler.text.setText("kek" + i);
     }
 
     @Override
@@ -38,9 +40,11 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHand
 
     public class ViewHandler extends RecyclerView.ViewHolder{
 
-
+        TextView text;
         public ViewHandler(View view) {
+
             super(view);
+            text = view.findViewById(R.id.text);
         }
     }
 }
