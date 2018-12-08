@@ -1,26 +1,32 @@
 package com.example.andrewmalygin.androiddp.MainWindow;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.andrewmalygin.androiddp.R;
 
 public class MainFragment extends Fragment {
 
-    private RecyclerView courses, category;
+    private RecyclerView courses;
     private MainPresenter presenter;
     private View view;
 
-    private CategoryAdapter categoryAdapter;
     private CoursesAdapter coursesAdapter;
+    private OnMainFragmentChanged onMainFragmentChanged;
+    private ProgressBar progressBar;
+
+    public void setOnMainFragmentChanged(OnMainFragmentChanged onMainFragmentChanged) {
+        this.onMainFragmentChanged = onMainFragmentChanged;
+    }
 
     @Nullable
     @Override
@@ -36,29 +42,32 @@ public class MainFragment extends Fragment {
 
         presenter = new MainPresenter(this);
 
+        progressBar = view.findViewById(R.id.progressBar);
+
         courses = view.findViewById(R.id.courses);
-        category = view.findViewById(R.id.category);
 
-        categoryAdapter = new CategoryAdapter(presenter.getCategories());
-        coursesAdapter = new CoursesAdapter(presenter.getCourses());
+        coursesAdapter = new CoursesAdapter(this, presenter.getCourses());
 
-        LinearLayoutManager categoryManager = new LinearLayoutManager(view.getContext());
         LinearLayoutManager coursesManager = new LinearLayoutManager(view.getContext());
 
-        categoryManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
         courses.setAdapter(coursesAdapter);
-        category.setAdapter(categoryAdapter);
 
         courses.setLayoutManager(coursesManager);
-        category.setLayoutManager(categoryManager);
-
-
+        showProgress();
     }
 
-    public void updateCategotyList(){
-        categoryAdapter.notifyDataSetChanged();
+    public void showProgress(){
+        progressBar.setVisibility(View.VISIBLE);
+        courses.setVisibility(View.INVISIBLE);
     }
+
+    public void hideProgress(){
+        progressBar.setVisibility(View.INVISIBLE);
+        courses.setVisibility(View.VISIBLE);
+    }
+
+    public void courseClick(){ onMainFragmentChanged.onCourseClick(); }
 
     public void updateCourseList(){
         coursesAdapter.notifyDataSetChanged();

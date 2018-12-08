@@ -1,52 +1,36 @@
-package com.example.andrewmalygin.androiddp;
+package com.example.andrewmalygin.androiddp.NavWindow;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import com.example.andrewmalygin.androiddp.MainWindow.MainFragment;
+import com.example.andrewmalygin.androiddp.MyCourseWindow.MyCoursesFragment;
+import com.example.andrewmalygin.androiddp.R;
 
 public class NavActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private FragmentTransaction fragt;
-    private MainFragment mainFragment = new MainFragment();
-    private MyCoursesFragment myCourseFragment = new MyCoursesFragment();
-
-    private void commit(int id){
-        fragt = getSupportFragmentManager().beginTransaction();
-
-        switch (id){
-            case R.id.nav_main:
-                fragt.replace(R.id.content_frame, mainFragment);
-                break;
-            case R.id.nav_mycourse:
-                fragt.replace(R.id.content_frame, myCourseFragment);
-                break;
-        }
-
-        fragt.commit();
-    }
+    private NavPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav);
 
+        presenter = new NavPresenter(this);
+
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
-
-
-        fragt = getSupportFragmentManager().beginTransaction();
-        fragt.replace(R.id.content_frame, mainFragment);
-        fragt.commit();
+        navigationView.getMenu().getItem(0).setChecked(true);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -56,8 +40,7 @@ public class NavActivity extends AppCompatActivity {
 
                 drawerLayout.closeDrawers();
 
-
-                commit(menuItem.getItemId());
+                presenter.setFragment(menuItem.getItemId());
 
                 return true;
             }
@@ -65,4 +48,7 @@ public class NavActivity extends AppCompatActivity {
 
     }
 
+    public Menu getMenu(){
+        return navigationView.getMenu();
+    }
 }
