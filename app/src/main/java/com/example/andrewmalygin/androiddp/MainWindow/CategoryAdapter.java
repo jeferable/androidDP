@@ -1,6 +1,7 @@
 package com.example.andrewmalygin.androiddp.MainWindow;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +29,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHa
 
     @Override
     public void onBindViewHolder(CategoryAdapter.ViewHandler handler, int i) {
-        //Course c = categories.get(i);
-        handler.text.setText("kek" + i);
+        Category c = categories.get(i);
+        handler.text.setText(c.getName()/);
+
     }
 
     @Override

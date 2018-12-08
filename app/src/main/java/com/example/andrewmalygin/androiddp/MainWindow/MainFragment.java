@@ -19,6 +19,9 @@ public class MainFragment extends Fragment {
     private MainPresenter presenter;
     private View view;
 
+    private CategoryAdapter categoryAdapter;
+    private CoursesAdapter coursesAdapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,8 +39,8 @@ public class MainFragment extends Fragment {
         courses = view.findViewById(R.id.courses);
         category = view.findViewById(R.id.category);
 
-        CategoryAdapter categoryAdapter = new CategoryAdapter(presenter.getCategories());
-        CoursesAdapter coursesAdapter = new CoursesAdapter(presenter.getCourses());
+        categoryAdapter = new CategoryAdapter(presenter.getCategories());
+        coursesAdapter = new CoursesAdapter(presenter.getCourses());
 
         LinearLayoutManager categoryManager = new LinearLayoutManager(view.getContext());
         LinearLayoutManager coursesManager = new LinearLayoutManager(view.getContext());
@@ -49,6 +52,16 @@ public class MainFragment extends Fragment {
 
         courses.setLayoutManager(coursesManager);
         category.setLayoutManager(categoryManager);
+
+
+    }
+
+    public void updateCategotyList(){
+        categoryAdapter.notifyDataSetChanged();
+    }
+
+    public void updateCourseList(){
+        coursesAdapter.notifyDataSetChanged();
     }
 
 }

@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface OnCategoryRepositoryChange {
 
-    void categoriesLoad(List<Category> list);
+    void categotyLoaded(List<Category> list);
 
 }
