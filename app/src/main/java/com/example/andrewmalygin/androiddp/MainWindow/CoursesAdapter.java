@@ -1,17 +1,18 @@
-package com.example.andrewmalygin.androiddp;
+package com.example.andrewmalygin.androiddp.MainWindow;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.andrewmalygin.androiddp.R;
 import com.example.andrewmalygin.androiddp.RESTApi.Course;
 
 import java.util.List;
 
-public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHandler>{
+public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHolder>{
 
     private List<Course> courses;
 
@@ -20,15 +21,14 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHand
     }
 
     @Override
-    public ViewHandler onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public CoursesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_courses, viewGroup, false);
-
-        return new CoursesAdapter.ViewHandler(view);
+        return new CoursesAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHandler viewHandler, int i) {
-
+    public void onBindViewHolder(@NonNull CoursesAdapter.ViewHolder holder, int i) {
+        holder.title.setText("Title " + i);
     }
 
     @Override
@@ -36,11 +36,15 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHand
         return courses.size();
     }
 
-    public class ViewHandler extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        TextView title;
 
 
-        public ViewHandler(View view) {
+        public ViewHolder(View view) {
             super(view);
+
+            title = view.findViewById(R.id.title);
         }
     }
 }
