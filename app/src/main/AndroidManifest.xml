@@ -12,14 +12,15 @@
         android:theme="@style/AppTheme"
         android:name=".Main">
         <activity
-            android:name=".NavActivity"
-            android:label="@string/title_activity_nav">
+            android:name=".NavWindow.NavActivity"
+            android:label="Популярные курсы">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CourseWindow.CourseActivity"/>
     </application>
 
 </manifest>

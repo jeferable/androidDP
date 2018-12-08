@@ -10,4 +10,7 @@ public interface Api {
     @GET("get/categories")
     Call< List<Category> > getCategories();
 
+    @GET("courses/all")
+    Call< List<Course>> getCourses();
+
 }
